@@ -1,0 +1,3 @@
+# ARCHITECTURE-CONSTITUTION — 아키텍처 핵심 원칙
+
+---

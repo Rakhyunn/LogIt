@@ -1,0 +1,3 @@
+# DOMAIN-COMMON-CONSTITUTION — 공통 도메인 원칙
+
+---

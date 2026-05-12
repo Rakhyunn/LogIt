@@ -2,6 +2,15 @@
 
 ---
 
+## 2026-05-13
+
+### [12] Supabase Cloud 연결 및 마이그레이션 적용
+- supabase login → supabase link → supabase db push 완료
+- Supabase Cloud에 5개 테이블 + RLS + 트리거 적용 확인
+- **초기 환경 세팅 전체 완료**
+
+---
+
 ## 2026-05-12
 
 ### [1] docs/ 초기 문서 구조 생성 (커밋: fe2afd7)

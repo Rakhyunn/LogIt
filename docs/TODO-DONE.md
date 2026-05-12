@@ -15,3 +15,7 @@
 - [x] 라우트 플레이스홀더 페이지 생성 ((auth), (main) 라우트 그룹)
 - [x] Supabase CLI 초기화 (backend/supabase/)
 - [x] 초기 DB 스키마 마이그레이션 작성 (5테이블 + RLS + 트리거)
+
+## 2026-05-13
+
+- [x] Supabase Cloud 연결 및 마이그레이션 적용 (supabase db push)

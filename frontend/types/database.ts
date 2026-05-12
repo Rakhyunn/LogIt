@@ -11,6 +11,7 @@ export interface Database {
           description: string | null
           cover_image_url: string | null
           metadata: Record<string, unknown>
+          created_by: string | null
           created_at: string
         }
         Insert: {
@@ -20,6 +21,7 @@ export interface Database {
           description?: string | null
           cover_image_url?: string | null
           metadata?: Record<string, unknown>
+          created_by?: string | null
           created_at?: string
         }
         Update: {
@@ -29,6 +31,7 @@ export interface Database {
           description?: string | null
           cover_image_url?: string | null
           metadata?: Record<string, unknown>
+          created_by?: string | null
           created_at?: string
         }
         Relationships: []

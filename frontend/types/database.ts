@@ -31,6 +31,7 @@ export interface Database {
           metadata?: Record<string, unknown>
           created_at?: string
         }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -54,6 +55,7 @@ export interface Database {
           bio?: string | null
           created_at?: string
         }
+        Relationships: []
       }
       reviews: {
         Row: {
@@ -86,6 +88,7 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       follows: {
         Row: {
@@ -103,6 +106,7 @@ export interface Database {
           following_id?: string
           created_at?: string
         }
+        Relationships: []
       }
       bookmarks: {
         Row: {
@@ -120,7 +124,14 @@ export interface Database {
           content_id?: string
           created_at?: string
         }
+        Relationships: []
       }
     }
+    Views: Record<string, never>
+    Functions: Record<string, never>
+    Enums: {
+      content_type: ContentType
+    }
+    CompositeTypes: Record<string, never>
   }
 }

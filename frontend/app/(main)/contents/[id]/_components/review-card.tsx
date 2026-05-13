@@ -9,6 +9,7 @@ import { type Database } from '@/types/database'
 type Review = Database['public']['Tables']['reviews']['Row']
 
 const BODY_LIMIT = 100
+const LINE_LIMIT = 3
 
 interface ReviewCardProps {
   review: Review & { username: string }
@@ -21,9 +22,14 @@ export default function ReviewCard({ review, isOwner, onEdit }: ReviewCardProps)
   const [isPending, startTransition] = useTransition()
   const [deleteError, setDeleteError] = useState<string | null>(null)
 
-  const needsTruncation = !!review.body && review.body.length > BODY_LIMIT
+  const lines = review.body?.split('\n') ?? []
+  const needsTruncation = !!review.body && (
+    review.body.length > BODY_LIMIT || lines.length > LINE_LIMIT
+  )
   const displayBody = needsTruncation && !expanded
-    ? review.body!.slice(0, BODY_LIMIT) + '...'
+    ? lines.length > LINE_LIMIT
+      ? lines.slice(0, LINE_LIMIT).join('\n') + '...'
+      : review.body!.slice(0, BODY_LIMIT) + '...'
     : review.body
 
   const formattedDate = new Date(review.created_at).toLocaleDateString('ko-KR', {

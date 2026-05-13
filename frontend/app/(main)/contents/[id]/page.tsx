@@ -59,7 +59,8 @@ export default async function ContentDetailPage({
   if (!content) notFound()
 
   const isOwner = !!user && user.id === content.created_by
-  const deleteWithId = (_: FormData) => deleteContent(id).then(() => {})
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const deleteWithId = deleteContent.bind(null, id) as any
 
   return (
     <main className="container mx-auto p-4 max-w-2xl space-y-6">

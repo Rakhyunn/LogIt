@@ -76,6 +76,14 @@ export async function deleteContent(id: string): Promise<ActionResult> {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { success: false, message: '로그인이 필요합니다.' }
 
+  // 커버 이미지 URL 먼저 조회 (삭제 후에는 조회 불가)
+  const { data: content } = await supabase
+    .from('contents')
+    .select('cover_image_url')
+    .eq('id', id)
+    .eq('created_by', user.id)
+    .single()
+
   const { error } = await supabase
     .from('contents')
     .delete()
@@ -85,6 +93,15 @@ export async function deleteContent(id: string): Promise<ActionResult> {
   if (error) {
     if (process.env.NODE_ENV === 'development') console.error(error)
     return { success: false, message: '콘텐츠 삭제에 실패했습니다.' }
+  }
+
+  // Storage 이미지 삭제 (실패해도 콘텐츠 삭제는 완료된 것으로 처리)
+  if (content?.cover_image_url) {
+    const url = new URL(content.cover_image_url)
+    const storagePath = url.pathname.split('/storage/v1/object/public/covers/')[1]
+    if (storagePath) {
+      await supabase.storage.from('covers').remove([storagePath])
+    }
   }
 
   revalidatePath('/')

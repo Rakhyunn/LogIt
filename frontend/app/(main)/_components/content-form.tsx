@@ -76,7 +76,7 @@ export default function ContentForm({ content }: { content?: Content }) {
     }
 
     const ext = file.type.split('/')[1] || 'jpg'
-    const path = `covers/${user.id}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+    const path = `${user.id}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
 
     const { error: uploadError } = await supabase.storage
       .from('covers')

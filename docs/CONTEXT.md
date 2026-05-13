@@ -25,4 +25,4 @@
 
 **Storage:**
 - 버킷: `covers` (public)
-- 경로: `covers/{user_id}/{timestamp}-{random}.{ext}`
+- 경로 (버킷 내): `{user_id}/{timestamp}-{random}.{ext}`

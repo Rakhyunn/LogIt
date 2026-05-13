@@ -9,6 +9,39 @@
 - Supabase Cloud에 5개 테이블 + RLS + 트리거 적용 확인
 - **초기 환경 세팅 전체 완료**
 
+### [13] 아키텍처 + 공통 도메인 문서 작성
+- ARCHITECTURE-CONSTITUTION.md (6개 원칙: 서버 우선, Supabase 단일 백엔드, 도메인 응집, 단방향 흐름, RLS 1차 보안, 에러 비노출)
+- ARCHITECTURE-STATUTE.md (폴더구조, 네이밍 규칙, 금지사항, 로딩/에러 처리)
+- DOMAIN-COMMON-CONSTITUTION.md (5개 원칙: 문서 선행, 자기완결성, 공통 로직 위임, 서버 인증, Supabase 타입 기준)
+- DOMAIN-COMMON-STATUTE.md (폴더구조 표준, ActionResult 타입, Supabase 클라이언트 규칙, 인증 확인 규칙)
+
+### [14] Auth 도메인 문서 작성
+- DOMAIN-AUTH-CONSTITUTION.md (5개 원칙: Supabase Auth 진입점, 이메일 인증 필수, OAuth 단일 콜백, 프로필 설정 흐름, Auth 페이지 보호)
+- DOMAIN-AUTH-STATUTE.md (페이지구조, 미들웨어 규칙, Server Actions 7개, profiles.is_profile_setup 컬럼 추가)
+
+### [15] Auth 도메인 구현
+- DB 마이그레이션: profiles에 is_profile_setup boolean DEFAULT false 추가
+- Server Actions: signUpWithEmail, signInWithEmail, signInWithGoogle, signOut, sendPasswordResetEmail, updatePassword, setupProfile
+- 미들웨어 전면 재작성: (main)/* 보호, Auth 페이지 로그인 시 리다이렉트, 프로필 미설정 리다이렉트
+- OAuth 콜백 Route Handler: /auth/callback
+- UI 페이지: login, signup, forgot-password, reset-password, profile/setup
+- Google OAuth 설정 (Supabase 대시보드)
+- 비밀번호 재설정 흐름 수정: redirectTo → /auth/callback?next=/reset-password
+
+### [16] Content 도메인 문서 작성
+- DOMAIN-CONTENT-CONSTITUTION.md (5개 원칙: 공개 자원, 인증 필수 CUD, 클라이언트 이미지 업로드, 타입별 metadata, seed 관리)
+- DOMAIN-CONTENT-STATUTE.md (페이지구조, Server Actions, Storage 규칙, metadata 타입, Seed 데이터)
+
+### [17] Content 도메인 구현
+- DB 마이그레이션: covers Storage 버킷 + RLS 정책, 콘텐츠 seed 데이터 6개
+- metadata 타입 정의 (frontend/types/content.ts)
+- next.config.ts: Supabase Storage 이미지 도메인 허용
+- shadcn textarea, select 추가
+- Server Actions: createContent, updateContent (기존 이미지 교체 시 Storage 삭제), deleteContent (Storage 이미지 함께 삭제)
+- 컴포넌트: content-card, content-filter (URL 쿼리 기반 필터/검색), content-form (Storage 직접 업로드, 세션 업로드 추적)
+- 페이지: 홈(목록), 상세, 등록, 수정
+- 버그 수정: deleteContent form action 직렬화, Storage 업로드 경로 버킷명 중복 제거
+
 ---
 
 ## 2026-05-12

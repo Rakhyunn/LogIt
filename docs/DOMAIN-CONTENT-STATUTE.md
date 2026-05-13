@@ -35,7 +35,7 @@ app/(main)/
 ## Supabase Storage 규칙
 
 - 버킷명: `covers`
-- 경로: `covers/{user_id}/{timestamp}-{filename}`
+- 경로 (버킷 내): `{user_id}/{timestamp}-{random}.{ext}`
 - 업로드는 클라이언트(`createBrowserClient`)에서 처리
 - 허용 확장자: jpg, jpeg, png, webp
 - 최대 파일 크기: 5MB

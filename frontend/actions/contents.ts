@@ -55,6 +55,14 @@ export async function updateContent(
 
   if (!title) return { success: false, message: '제목을 입력해 주세요.' }
 
+  // 기존 커버 이미지 조회 (변경 시 Storage 정리를 위해)
+  const { data: existing } = await supabase
+    .from('contents')
+    .select('cover_image_url')
+    .eq('id', id)
+    .eq('created_by', user.id)
+    .single()
+
   const { error } = await supabase
     .from('contents')
     .update({ title, description, cover_image_url, metadata })
@@ -64,6 +72,16 @@ export async function updateContent(
   if (error) {
     if (process.env.NODE_ENV === 'development') console.error(error)
     return { success: false, message: '콘텐츠 수정에 실패했습니다.' }
+  }
+
+  // 기존 이미지가 교체되거나 제거됐으면 Storage에서 삭제
+  const oldUrl = existing?.cover_image_url
+  if (oldUrl && oldUrl !== cover_image_url) {
+    const parsed = new URL(oldUrl)
+    const storagePath = parsed.pathname.split('/storage/v1/object/public/covers/')[1]
+    if (storagePath) {
+      await supabase.storage.from('covers').remove([storagePath])
+    }
   }
 
   revalidatePath('/')

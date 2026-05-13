@@ -29,9 +29,20 @@ export default function ContentForm({ content }: { content?: Content }) {
     content?.cover_image_url ?? null
   )
   const [uploading, setUploading] = useState(false)
+  // 이번 세션에서 업로드한 URL (폼 제출 전 제거 시 Storage에서 삭제하기 위해)
+  const [sessionUploadUrl, setSessionUploadUrl] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const meta = (content?.metadata ?? {}) as Record<string, unknown>
+
+  async function deleteFromStorage(publicUrl: string) {
+    const supabase = createClient()
+    const parsed = new URL(publicUrl)
+    const storagePath = parsed.pathname.split('/storage/v1/object/public/covers/')[1]
+    if (storagePath) {
+      await supabase.storage.from('covers').remove([storagePath])
+    }
+  }
 
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
@@ -58,6 +69,12 @@ export default function ContentForm({ content }: { content?: Content }) {
       return
     }
 
+    // 이전 세션 업로드가 있으면 교체 전에 삭제
+    if (sessionUploadUrl) {
+      await deleteFromStorage(sessionUploadUrl)
+      setSessionUploadUrl(null)
+    }
+
     const ext = file.type.split('/')[1] || 'jpg'
     const path = `covers/${user.id}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
 
@@ -74,6 +91,7 @@ export default function ContentForm({ content }: { content?: Content }) {
 
     const { data } = supabase.storage.from('covers').getPublicUrl(path)
     setCoverUrl(data.publicUrl)
+    setSessionUploadUrl(data.publicUrl)
     setUploading(false)
   }
 
@@ -207,7 +225,12 @@ export default function ContentForm({ content }: { content?: Content }) {
               type="button"
               variant="ghost"
               size="sm"
-              onClick={() => {
+              onClick={async () => {
+                // 이번 세션에서 업로드한 이미지면 즉시 Storage에서 삭제
+                if (sessionUploadUrl) {
+                  await deleteFromStorage(sessionUploadUrl)
+                  setSessionUploadUrl(null)
+                }
                 setCoverUrl(null)
                 if (fileInputRef.current) fileInputRef.current.value = ''
               }}

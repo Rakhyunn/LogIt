@@ -26,3 +26,5 @@
 - [x] DOMAIN-AUTH-CONSTITUTION.md 작성 (5개 인증 원칙)
 - [x] DOMAIN-AUTH-STATUTE.md 작성 (페이지구조, 미들웨어 규칙, Server Actions, DB 변경사항)
 - [x] Auth 도메인 구현 (이메일/패스워드 + Google OAuth, 비밀번호 재설정, 라우트 보호, 프로필 설정)
+- [x] DOMAIN-CONTENT-CONSTITUTION.md 작성 (5개 콘텐츠 원칙)
+- [x] DOMAIN-CONTENT-STATUTE.md 작성 (페이지구조, Storage 규칙, metadata 타입, Seed 데이터)

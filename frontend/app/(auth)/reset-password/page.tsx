@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -8,6 +9,7 @@ import { updatePassword } from '@/actions/auth'
 
 export default function ResetPasswordPage() {
   const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(false)
   const [pending, setPending] = useState(false)
 
   async function handleSubmit(formData: FormData) {
@@ -25,7 +27,26 @@ export default function ResetPasswordPage() {
     if (!result.success) {
       setError(result.message)
       setPending(false)
+    } else {
+      setSuccess(true)
+      setPending(false)
     }
+  }
+
+  if (success) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="w-full max-w-sm space-y-4 p-6 text-center">
+          <h1 className="text-2xl font-bold">비밀번호가 변경되었습니다</h1>
+          <p className="text-muted-foreground">
+            새 비밀번호로 로그인해 주세요.
+          </p>
+          <Link href="/login" className="text-sm hover:underline">
+            로그인으로 이동
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   return (

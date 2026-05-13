@@ -28,6 +28,7 @@ export default function SignupPage() {
       setError(result.message)
       setPending(false)
     } else {
+      setPending(false)
       setSuccess(true)
     }
   }

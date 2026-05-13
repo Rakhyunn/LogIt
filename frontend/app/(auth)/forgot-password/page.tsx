@@ -20,6 +20,7 @@ export default function ForgotPasswordPage() {
       setError(result.message)
       setPending(false)
     } else {
+      setPending(false)
       setSuccess(true)
     }
   }

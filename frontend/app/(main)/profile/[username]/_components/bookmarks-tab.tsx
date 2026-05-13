@@ -15,11 +15,13 @@ const CONTENT_TYPE_LABELS: Record<ContentType, string> = {
 export async function BookmarksTab({ userId }: BookmarksTabProps) {
   const supabase = await createClient()
 
-  const { data: bookmarks } = await supabase
+  const { data: bookmarks, error } = await supabase
     .from('bookmarks')
     .select('content_id, created_at, contents(id, title, type)')
     .eq('user_id', userId)
     .order('created_at', { ascending: false })
+
+  if (error) throw error
 
   if (!bookmarks || bookmarks.length === 0) {
     return (
@@ -32,9 +34,7 @@ export async function BookmarksTab({ userId }: BookmarksTabProps) {
   return (
     <ul className="space-y-3">
       {bookmarks.map((bookmark) => {
-        const content = Array.isArray(bookmark.contents)
-          ? bookmark.contents[0]
-          : bookmark.contents
+        const content = bookmark.contents
         return (
           <li key={bookmark.content_id} className="rounded-lg border p-4">
             {content && (

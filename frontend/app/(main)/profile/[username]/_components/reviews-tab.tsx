@@ -8,11 +8,13 @@ interface ReviewsTabProps {
 export async function ReviewsTab({ userId }: ReviewsTabProps) {
   const supabase = await createClient()
 
-  const { data: reviews } = await supabase
+  const { data: reviews, error } = await supabase
     .from('reviews')
     .select('id, rating, body, tags, created_at, contents(id, title)')
     .eq('user_id', userId)
     .order('created_at', { ascending: false })
+
+  if (error) throw error
 
   if (!reviews || reviews.length === 0) {
     return (
@@ -25,9 +27,7 @@ export async function ReviewsTab({ userId }: ReviewsTabProps) {
   return (
     <ul className="space-y-4">
       {reviews.map((review) => {
-        const content = Array.isArray(review.contents)
-          ? review.contents[0]
-          : review.contents
+        const content = review.contents
         return (
           <li key={review.id} className="rounded-lg border p-4">
             {content && (

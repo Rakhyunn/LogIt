@@ -16,8 +16,7 @@ import {
 } from '@/components/ui/select'
 import { createClient } from '@/lib/supabase/client'
 import { createContent, updateContent } from '@/actions/contents'
-import { type ContentType } from '@/types/database'
-import { type Database } from '@/types/database'
+import { type ContentType, type Database } from '@/types/database'
 
 type Content = Database['public']['Tables']['contents']['Row']
 
@@ -59,7 +58,7 @@ export default function ContentForm({ content }: { content?: Content }) {
       return
     }
 
-    const ext = file.name.split('.').pop()
+    const ext = file.type.split('/')[1] || 'jpg'
     const path = `covers/${user.id}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
 
     const { error: uploadError } = await supabase.storage
@@ -111,29 +110,33 @@ export default function ContentForm({ content }: { content?: Content }) {
     formData.set('metadata', JSON.stringify(metadata))
 
     if (content) {
-      const result = await updateContent(content.id, formData)
-      if (!result.success) {
-        setError(result.message)
+      try {
+        const result = await updateContent(content.id, formData)
+        if (!result.success) {
+          setError(result.message)
+        }
+        // 성공 시 updateContent 내부에서 redirect
+      } finally {
         setPending(false)
       }
-      // 성공 시 updateContent 내부에서 redirect
     } else {
       const result = await createContent(formData)
       if (!result.success) {
         setError(result.message)
         setPending(false)
       } else {
+        setPending(false)
         router.push(`/contents/${result.data.id}`)
       }
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-bold">
+    <div className="max-w-2xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6">
         {content ? '콘텐츠 수정' : '콘텐츠 등록'}
       </h1>
-
+    <form onSubmit={handleSubmit} className="space-y-6">
       {/* 유형 선택 — 수정 시 변경 불가 */}
       <div className="space-y-1">
         <Label>유형</Label>
@@ -204,7 +207,10 @@ export default function ContentForm({ content }: { content?: Content }) {
               type="button"
               variant="ghost"
               size="sm"
-              onClick={() => setCoverUrl(null)}
+              onClick={() => {
+                setCoverUrl(null)
+                if (fileInputRef.current) fileInputRef.current.value = ''
+              }}
             >
               제거
             </Button>
@@ -354,5 +360,6 @@ export default function ContentForm({ content }: { content?: Content }) {
         </Button>
       </div>
     </form>
+    </div>
   )
 }

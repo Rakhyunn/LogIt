@@ -25,3 +25,4 @@
 - [x] DOMAIN-COMMON-STATUTE.md 작성 (폴더구조 표준, ActionResult 타입, 인증 규칙)
 - [x] DOMAIN-AUTH-CONSTITUTION.md 작성 (5개 인증 원칙)
 - [x] DOMAIN-AUTH-STATUTE.md 작성 (페이지구조, 미들웨어 규칙, Server Actions, DB 변경사항)
+- [x] Auth 도메인 구현 (이메일/패스워드 + Google OAuth, 비밀번호 재설정, 라우트 보호, 프로필 설정)

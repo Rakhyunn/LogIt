@@ -19,6 +19,7 @@ interface ReviewCardProps {
 export default function ReviewCard({ review, isOwner, onEdit }: ReviewCardProps) {
   const [expanded, setExpanded] = useState(false)
   const [isPending, startTransition] = useTransition()
+  const [deleteError, setDeleteError] = useState<string | null>(null)
 
   const needsTruncation = !!review.body && review.body.length > BODY_LIMIT
   const displayBody = needsTruncation && !expanded
@@ -34,7 +35,10 @@ export default function ReviewCard({ review, isOwner, onEdit }: ReviewCardProps)
   function handleDelete() {
     if (!confirm('리뷰를 삭제할까요?')) return
     startTransition(async () => {
-      await deleteReview(review.id, review.content_id)
+      const result = await deleteReview(review.id, review.content_id)
+      if (!result.success) {
+        setDeleteError(result.message)
+      }
     })
   }
 
@@ -53,6 +57,7 @@ export default function ReviewCard({ review, isOwner, onEdit }: ReviewCardProps)
               variant="ghost"
               size="sm"
               onClick={onEdit}
+              disabled={isPending}
               className="h-7 text-xs"
             >
               수정
@@ -69,9 +74,10 @@ export default function ReviewCard({ review, isOwner, onEdit }: ReviewCardProps)
             </Button>
           </div>
         )}
+        {deleteError && <p className="text-xs text-red-500">{deleteError}</p>}
       </div>
 
-      {review.tags.length > 0 && (
+      {(review.tags?.length ?? 0) > 0 && (
         <div className="flex gap-1 flex-wrap">
           {review.tags.map((tag) => (
             <span

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
@@ -28,22 +28,27 @@ export default function ReviewForm({
     existingReview?.tags ?? []
   )
   const [error, setError] = useState<string | null>(null)
-  const [pending, setPending] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const [formKey, setFormKey] = useState(0)
+
+  function handleRatingChange(v: number) {
+    setRating(v)
+    setError(null)
+  }
 
   function toggleTag(tag: string) {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     )
+    setError(null)
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (!rating) {
       setError('별점을 선택해 주세요.')
       return
     }
-
-    setPending(true)
     setError(null)
 
     const formData = new FormData(e.currentTarget)
@@ -51,14 +56,23 @@ export default function ReviewForm({
     formData.set('tags', JSON.stringify(selectedTags))
     formData.set('content_id', contentId)
 
-    const result = existingReview
-      ? await updateReview(existingReview.id, formData)
-      : await createReview(contentId, formData)
+    startTransition(async () => {
+      const result = existingReview
+        ? await updateReview(existingReview.id, formData)
+        : await createReview(contentId, formData)
 
-    if (!result.success) {
-      setError(result.message)
-    }
-    setPending(false)
+      if (!result.success) {
+        setError(result.message ?? '오류가 발생했습니다.')
+      } else {
+        if (existingReview) {
+          onCancel?.()
+        } else {
+          setRating(0)
+          setSelectedTags([])
+          setFormKey((k) => k + 1)
+        }
+      }
+    })
   }
 
   return (
@@ -70,7 +84,7 @@ export default function ReviewForm({
       {/* 별점 */}
       <div className="space-y-1">
         <Label className="text-xs">별점</Label>
-        <StarRating value={rating} onChange={setRating} />
+        <StarRating value={rating} onChange={handleRatingChange} />
       </div>
 
       {/* 태그 */}
@@ -99,6 +113,7 @@ export default function ReviewForm({
       <div className="space-y-1">
         <Label htmlFor="body" className="text-xs">본문 (선택)</Label>
         <Textarea
+          key={formKey}
           id="body"
           name="body"
           placeholder="이 콘텐츠에 대한 생각을 자유롭게 적어주세요."
@@ -110,8 +125,8 @@ export default function ReviewForm({
       {error && <p className="text-sm text-red-500">{error}</p>}
 
       <div className="flex gap-2">
-        <Button type="submit" size="sm" disabled={pending}>
-          {pending ? '저장 중...' : existingReview ? '수정 완료' : '등록'}
+        <Button type="submit" size="sm" disabled={isPending}>
+          {isPending ? '저장 중...' : existingReview ? '수정 완료' : '등록'}
         </Button>
         {onCancel && (
           <Button
@@ -119,7 +134,7 @@ export default function ReviewForm({
             variant="outline"
             size="sm"
             onClick={onCancel}
-            disabled={pending}
+            disabled={isPending}
           >
             취소
           </Button>

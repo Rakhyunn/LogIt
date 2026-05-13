@@ -29,3 +29,5 @@
 - [x] DOMAIN-CONTENT-CONSTITUTION.md 작성 (5개 콘텐츠 원칙)
 - [x] DOMAIN-CONTENT-STATUTE.md 작성 (페이지구조, Storage 규칙, metadata 타입, Seed 데이터)
 - [x] Content 도메인 구현 (목록/상세/등록/수정/삭제, Supabase Storage 이미지 업로드, seed 데이터)
+- [x] DOMAIN-REVIEW-CONSTITUTION.md 작성 (5개 리뷰 원칙)
+- [x] DOMAIN-REVIEW-STATUTE.md 작성 (컴포넌트 구조, Server Actions, ReviewSection/Card/StarRating, preset 태그)

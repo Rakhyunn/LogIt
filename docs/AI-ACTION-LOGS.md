@@ -32,6 +32,12 @@
 - DOMAIN-CONTENT-CONSTITUTION.md (5개 원칙: 공개 자원, 인증 필수 CUD, 클라이언트 이미지 업로드, 타입별 metadata, seed 관리)
 - DOMAIN-CONTENT-STATUTE.md (페이지구조, Server Actions, Storage 규칙, metadata 타입, Seed 데이터)
 
+### [18] Review 도메인 문서 작성
+- DOMAIN-REVIEW-CONSTITUTION.md (5개 원칙: 콘텐츠 종속, 1인 1리뷰, 인증 필수, preset 태그, Suspense 스트리밍)
+- DOMAIN-REVIEW-STATUTE.md (컴포넌트 구조, Server Actions 3개, ReviewSection/Card/StarRating 동작, preset 태그 상수)
+- 리뷰 상세 페이지 제거, 더보기/축약 토글로 대체
+- 평균별점: AVG(rating) 실시간 계산 방식 채택
+
 ### [17] Content 도메인 구현
 - DB 마이그레이션: covers Storage 버킷 + RLS 정책, 콘텐츠 seed 데이터 6개
 - metadata 타입 정의 (frontend/types/content.ts)

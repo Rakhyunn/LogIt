@@ -94,7 +94,22 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "reviews_content_id_fkey",
+            columns: ["content_id"],
+            isOneToOne: false,
+            referencedRelation: "contents",
+            referencedColumns: ["id"],
+          },
+          {
+            foreignKeyName: "reviews_user_id_fkey",
+            columns: ["user_id"],
+            isOneToOne: false,
+            referencedRelation: "profiles",
+            referencedColumns: ["id"],
+          },
+        ]
       }
       follows: {
         Row: {
@@ -130,7 +145,22 @@ export interface Database {
           content_id?: string
           created_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "bookmarks_content_id_fkey",
+            columns: ["content_id"],
+            isOneToOne: false,
+            referencedRelation: "contents",
+            referencedColumns: ["id"],
+          },
+          {
+            foreignKeyName: "bookmarks_user_id_fkey",
+            columns: ["user_id"],
+            isOneToOne: false,
+            referencedRelation: "profiles",
+            referencedColumns: ["id"],
+          },
+        ]
       }
     }
     Views: Record<string, never>

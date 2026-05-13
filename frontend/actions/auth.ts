@@ -47,8 +47,12 @@ export async function signInWithGoogle(): Promise<ActionResult> {
     },
   })
 
-  if (error || !data.url) {
+  if (error) {
     if (process.env.NODE_ENV === 'development') console.error(error)
+    return { success: false, message: 'Google 로그인에 실패했습니다.' }
+  }
+  if (!data.url) {
+    if (process.env.NODE_ENV === 'development') console.error('OAuth returned no redirect URL')
     return { success: false, message: 'Google 로그인에 실패했습니다.' }
   }
 
@@ -94,11 +98,18 @@ export async function updatePassword(formData: FormData): Promise<ActionResult> 
     return { success: false, message: '비밀번호 변경에 실패했습니다.' }
   }
 
+  // 다른 기기의 세션 무효화 (에러는 무시 — 비밀번호 변경은 이미 성공)
+  await supabase.auth.signOut({ scope: 'others' })
+
   redirect('/')
 }
 
 export async function setupProfile(formData: FormData): Promise<ActionResult> {
-  const username = (formData.get('username') as string).trim()
+  const username = ((formData.get('username') as string) ?? '').trim()
+
+  if (!username || username.length < 2) {
+    return { success: false, message: 'username은 2자 이상이어야 합니다.' }
+  }
 
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()

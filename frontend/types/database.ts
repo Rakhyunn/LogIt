@@ -42,6 +42,7 @@ export interface Database {
           username: string
           avatar_url: string | null
           bio: string | null
+          is_profile_setup: boolean
           created_at: string
         }
         Insert: {
@@ -49,6 +50,7 @@ export interface Database {
           username: string
           avatar_url?: string | null
           bio?: string | null
+          is_profile_setup?: boolean
           created_at?: string
         }
         Update: {
@@ -56,6 +58,7 @@ export interface Database {
           username?: string
           avatar_url?: string | null
           bio?: string | null
+          is_profile_setup?: boolean
           created_at?: string
         }
         Relationships: []

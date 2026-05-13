@@ -31,3 +31,4 @@
 - [x] Content 도메인 구현 (목록/상세/등록/수정/삭제, Supabase Storage 이미지 업로드, seed 데이터)
 - [x] DOMAIN-REVIEW-CONSTITUTION.md 작성 (5개 리뷰 원칙)
 - [x] DOMAIN-REVIEW-STATUTE.md 작성 (컴포넌트 구조, Server Actions, ReviewSection/Card/StarRating, preset 태그)
+- [x] Review 도메인 구현 (리뷰 작성/수정/삭제, 별점, preset 태그, 더보기/축약, 평균별점, Suspense 스트리밍)

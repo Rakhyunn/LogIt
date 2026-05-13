@@ -4,6 +4,16 @@
 
 ## 2026-05-13
 
+### [19] Review 도메인 구현
+- constants/review-tags.ts: preset 태그 10개 (as const, ReviewTag 타입)
+- actions/reviews.ts: createReview, updateReview, deleteReview (23505 에러 처리, revalidatePath)
+- star-rating.tsx: lucide-react Star, hover/click, readOnly 모드, size 옵션
+- review-card.tsx: 더보기/축약(100자), useTransition 삭제, isOwner 버튼, 에러 처리
+- review-form.tsx: useTransition pending, 별점+태그+본문, create/edit 모드, 성공 시 초기화
+- review-section.tsx: 서버 컴포넌트, Promise.all fetch, username 2-query join, avgRating JS 계산
+- review-list-client.tsx: editingId 수정 상태 관리, 작성/수정 폼 분기
+- contents/[id]/page.tsx: Suspense fallback + ReviewSection 추가
+
 ### [12] Supabase Cloud 연결 및 마이그레이션 적용
 - supabase login → supabase link → supabase db push 완료
 - Supabase Cloud에 5개 테이블 + RLS + 트리거 적용 확인

@@ -28,6 +28,8 @@ export default function ProfileSetupPage() {
     if (!result.success) {
       setError(result.message)
       setPending(false)
+    } else {
+      setPending(false)
     }
   }
 

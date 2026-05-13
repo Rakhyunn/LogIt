@@ -28,3 +28,4 @@
 - [x] Auth 도메인 구현 (이메일/패스워드 + Google OAuth, 비밀번호 재설정, 라우트 보호, 프로필 설정)
 - [x] DOMAIN-CONTENT-CONSTITUTION.md 작성 (5개 콘텐츠 원칙)
 - [x] DOMAIN-CONTENT-STATUTE.md 작성 (페이지구조, Storage 규칙, metadata 타입, Seed 데이터)
+- [x] Content 도메인 구현 (목록/상세/등록/수정/삭제, Supabase Storage 이미지 업로드, seed 데이터)

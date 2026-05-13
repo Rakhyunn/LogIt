@@ -98,7 +98,7 @@ export default function ReviewCard({ review, isOwner, onEdit }: ReviewCardProps)
 
       {displayBody && (
         <div className="space-y-1">
-          <p className="text-sm text-muted-foreground whitespace-pre-wrap">{displayBody}</p>
+          <p className="text-sm text-muted-foreground whitespace-pre-wrap break-words">{displayBody}</p>
           {needsTruncation && (
             <button
               type="button"

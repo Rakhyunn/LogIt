@@ -39,7 +39,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </Link>
       </div>
 
-      <Suspense>
+      <Suspense fallback={<div className="h-10 w-80 bg-muted rounded animate-pulse" />}>
         <ContentFilter />
       </Suspense>
 

@@ -2,7 +2,7 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 import { type Database } from '@/types/database'
 
-const AUTH_PAGES = ['/login', '/signup', '/forgot-password', '/reset-password']
+const AUTH_PAGES = ['/login', '/signup', '/forgot-password']
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -41,8 +41,8 @@ export async function middleware(request: NextRequest) {
   // 보호 라우트: 비로그인 시 로그인 페이지로
   if (!user) return NextResponse.redirect(new URL('/login', request.url))
 
-  // 프로필 미설정 시 setup 페이지로 (무한 루프 방지)
-  if (pathname !== '/profile/setup') {
+  // 프로필 미설정 시 setup 페이지로 (무한 루프 방지, 비밀번호 재설정 중 예외)
+  if (pathname !== '/profile/setup' && pathname !== '/reset-password') {
     const { data: profile } = await supabase
       .from('profiles')
       .select('is_profile_setup')

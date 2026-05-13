@@ -19,3 +19,7 @@
 ## 2026-05-13
 
 - [x] Supabase Cloud 연결 및 마이그레이션 적용 (supabase db push)
+- [x] ARCHITECTURE-CONSTITUTION.md 작성 (6개 핵심 원칙)
+- [x] ARCHITECTURE-STATUTE.md 작성 (폴더구조, 네이밍, 금지사항)
+- [x] DOMAIN-COMMON-CONSTITUTION.md 작성 (5개 공통 원칙)
+- [x] DOMAIN-COMMON-STATUTE.md 작성 (폴더구조 표준, ActionResult 타입, 인증 규칙)

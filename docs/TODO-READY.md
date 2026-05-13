@@ -7,8 +7,8 @@
 > CLAUDE.md 규칙: 도메인 문서 없이 해당 도메인 기능을 구현하지 마라.
 > 각 도메인마다 CONSTITUTION.md + STATUTE.md 생성 필요.
 
-- [ ] docs/DOMAIN-COMMON-CONSTITUTION.md 작성 (공통 원칙 채우기)
-- [ ] docs/DOMAIN-COMMON-STATUTE.md 작성 (공통 규칙 채우기)
+- [x] docs/DOMAIN-COMMON-CONSTITUTION.md 작성 (공통 원칙 채우기)
+- [x] docs/DOMAIN-COMMON-STATUTE.md 작성 (공통 규칙 채우기)
 - [ ] docs/DOMAIN-AUTH-CONSTITUTION.md 생성 (인증 도메인 원칙)
 - [ ] docs/DOMAIN-AUTH-STATUTE.md 생성 (인증 도메인 규칙)
 - [ ] docs/DOMAIN-CONTENT-CONSTITUTION.md 생성 (콘텐츠 도메인 원칙)
@@ -22,5 +22,5 @@
 
 ## 아키텍처 문서 작성
 
-- [ ] docs/ARCHITECTURE-CONSTITUTION.md 작성 (아키텍처 핵심 원칙 채우기)
-- [ ] docs/ARCHITECTURE-STATUTE.md 작성 (아키텍처 구현 규칙 채우기)
+- [x] docs/ARCHITECTURE-CONSTITUTION.md 작성 (아키텍처 핵심 원칙 채우기)
+- [x] docs/ARCHITECTURE-STATUTE.md 작성 (아키텍처 구현 규칙 채우기)

@@ -1,6 +1,8 @@
+import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import ReviewSection from './_components/review-section'
 import { createClient } from '@/lib/supabase/server'
 import { deleteContent } from '@/actions/contents'
 import { type ContentMeta, type MovieMeta, type DramaMeta, type BookMeta } from '@/types/content'
@@ -119,6 +121,23 @@ export default async function ContentDetailPage({
           </form>
         </div>
       )}
+
+      {/* 리뷰 섹션 — 스트리밍 */}
+      <Suspense
+        fallback={
+          <div className="pt-6 border-t space-y-3">
+            <div className="h-6 w-16 bg-muted rounded animate-pulse" />
+            {[1, 2].map((i) => (
+              <div key={i} className="space-y-2 py-4 border-b">
+                <div className="h-4 w-48 bg-muted rounded animate-pulse" />
+                <div className="h-3 w-full bg-muted rounded animate-pulse" />
+              </div>
+            ))}
+          </div>
+        }
+      >
+        <ReviewSection contentId={id} />
+      </Suspense>
     </main>
   )
 }

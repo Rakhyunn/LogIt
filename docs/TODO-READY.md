@@ -9,8 +9,8 @@
 
 - [x] docs/DOMAIN-COMMON-CONSTITUTION.md 작성 (공통 원칙 채우기)
 - [x] docs/DOMAIN-COMMON-STATUTE.md 작성 (공통 규칙 채우기)
-- [ ] docs/DOMAIN-AUTH-CONSTITUTION.md 생성 (인증 도메인 원칙)
-- [ ] docs/DOMAIN-AUTH-STATUTE.md 생성 (인증 도메인 규칙)
+- [x] docs/DOMAIN-AUTH-CONSTITUTION.md 생성 (인증 도메인 원칙)
+- [x] docs/DOMAIN-AUTH-STATUTE.md 생성 (인증 도메인 규칙)
 - [ ] docs/DOMAIN-CONTENT-CONSTITUTION.md 생성 (콘텐츠 도메인 원칙)
 - [ ] docs/DOMAIN-CONTENT-STATUTE.md 생성 (콘텐츠 도메인 규칙)
 - [ ] docs/DOMAIN-REVIEW-CONSTITUTION.md 생성 (리뷰 도메인 원칙)

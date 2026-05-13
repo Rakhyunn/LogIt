@@ -23,3 +23,5 @@
 - [x] ARCHITECTURE-STATUTE.md 작성 (폴더구조, 네이밍, 금지사항)
 - [x] DOMAIN-COMMON-CONSTITUTION.md 작성 (5개 공통 원칙)
 - [x] DOMAIN-COMMON-STATUTE.md 작성 (폴더구조 표준, ActionResult 타입, 인증 규칙)
+- [x] DOMAIN-AUTH-CONSTITUTION.md 작성 (5개 인증 원칙)
+- [x] DOMAIN-AUTH-STATUTE.md 작성 (페이지구조, 미들웨어 규칙, Server Actions, DB 변경사항)

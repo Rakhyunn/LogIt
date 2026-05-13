@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { type Database } from '@/types/database'
+import { cn } from '@/lib/utils'
 
 type Profile = Database['public']['Tables']['profiles']['Row']
 
@@ -22,9 +23,12 @@ export function ProfileHeader({ profile, isOwner }: ProfileHeaderProps) {
         </p>
       </div>
       {isOwner && (
-        <Button asChild variant="outline" size="sm">
-          <Link href={`/profile/${profile.username}/edit`}>프로필 수정</Link>
-        </Button>
+        <Link
+          href={`/profile/${profile.username}/edit`}
+          className={cn(buttonVariants({ variant: 'outline', size: 'sm' }))}
+        >
+          프로필 수정
+        </Link>
       )}
     </div>
   )

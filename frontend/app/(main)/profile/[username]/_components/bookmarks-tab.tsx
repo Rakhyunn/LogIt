@@ -46,7 +46,7 @@ export async function BookmarksTab({ userId }: BookmarksTabProps) {
                   {content.title}
                 </Link>
                 <span className="text-xs text-muted-foreground">
-                  {CONTENT_TYPE_LABELS[content.type]}
+                  {CONTENT_TYPE_LABELS[content.type as ContentType]}
                 </span>
               </div>
             )}

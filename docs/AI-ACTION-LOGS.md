@@ -4,6 +4,13 @@
 
 ## 2026-05-14
 
+### [27] 팔로우 도메인 구현 완료
+- actions/user.ts: followUser, unfollowUser (자기 자신 팔로우 방지, revalidatePath)
+- follow-button.tsx: useOptimistic + useTransition, BookmarkButton과 동일 패턴
+- profile-header.tsx: 팔로워/팔로잉 수 + FollowButton (본인은 프로필 수정 버튼)
+- profile/[username]/page.tsx: Promise.all로 팔로워/팔로잉 수 + 팔로우 여부 조회
+- contents/[id]/page.tsx: 작성자 프로필 + 팔로우 여부 조회, 작성자 영역 추가
+
 ### [26] 공통 네비게이션 구현 완료
 - sign-out-button.tsx: form action={signOut as any} Client Component
 - header.tsx: Server Component, user+profile 순차 조회, UserCircle 아이콘

@@ -36,7 +36,7 @@ export default function ContentCard({
           </div>
         )}
         {bookmarkSlot && (
-          <div className="absolute top-2 right-2 z-10" onClick={(e) => e.preventDefault()}>
+          <div className="absolute top-2 right-2 z-10" onClick={(e) => e.stopPropagation()}>
             {bookmarkSlot}
           </div>
         )}

@@ -4,6 +4,13 @@
 
 ## 2026-05-14
 
+### [24] Bookmark 도메인 구현 완료
+- actions/bookmarks.ts: addBookmark, removeBookmark (RLS 이중 보호, 23505 처리)
+- bookmark-button.tsx: useOptimistic + useTransition, isPending 비활성화, 실패 시 router.refresh(), 비로그인 /login 리다이렉트
+- content-card.tsx: bookmarkSlot render prop, stopPropagation으로 Link 이동 차단
+- page.tsx: 북마크 일괄 조회(Set) + Promise.all 병렬 fetch
+- contents/[id]/page.tsx: maybeSingle() 북마크 조회 후 BookmarkButton 렌더
+
 ### [23] User 도메인 구현 2단계 완료
 - profile/[username]/page.tsx: Suspense 스트리밍, ProfileHeader/Tabs/ReviewsTab/BookmarksTab 조합 (commit: 0b538fe)
 - _components/profile-edit-form.tsx: useState + useTransition, username 중복 확인 버튼, updateProfile 호출 (commit: 94cbeed)

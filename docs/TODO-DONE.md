@@ -47,3 +47,4 @@
   - _components/profile-edit-form.tsx: username 중복 확인 포함 수정 폼 (commit: 94cbeed)
   - profile/[username]/edit/page.tsx: 프로필 수정 페이지, 소유자 검증 (commit: d788e53)
   - tsc --noEmit: 오류 없음, eslint: 기존 warning 2개 (신규 없음)
+- [x] Bookmark 도메인 구현 (목록 카드 + 상세 페이지 Optimistic UI 토글, isPending 비활성화, 비로그인 리다이렉트)

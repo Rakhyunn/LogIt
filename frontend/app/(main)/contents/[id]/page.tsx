@@ -77,7 +77,7 @@ export default async function ContentDetailPage({
   const createdBy = content.created_by ?? ''
 
   const [authorProfileResult, followResult] = await Promise.all([
-    supabase.from('profiles').select('username').eq('id', createdBy).single(),
+    supabase.from('profiles').select('username').eq('id', createdBy).maybeSingle(),
     user && !isOwner
       ? supabase
           .from('follows')

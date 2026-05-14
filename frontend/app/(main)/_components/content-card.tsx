@@ -23,7 +23,7 @@ export default function ContentCard({
     <div className="relative">
       <Link
         href={`/contents/${content.id}`}
-        className="group block rounded-lg border hover:border-primary transition-colors overflow-hidden"
+        className="group block rounded-2xl border border-border/60 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden"
       >
         <div className="relative w-full aspect-[2/3] bg-muted">
           {content.cover_image_url ? (

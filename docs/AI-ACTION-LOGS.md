@@ -4,6 +4,11 @@
 
 ## 2026-05-14
 
+### [26] 공통 네비게이션 구현 완료
+- sign-out-button.tsx: form action={signOut as any} Client Component
+- header.tsx: Server Component, user+profile 순차 조회, UserCircle 아이콘
+- layout.tsx: Header + main 래핑
+
 ### [25] Bookmark 버그 수정 (테스트 통과)
 - content-card.tsx: bookmarkSlot을 Link 바깥 div로 이동 → 클릭 시 상세 페이지 이동 버그 수정
 - bookmark-button.tsx: handleClick에 e.stopPropagation() 추가

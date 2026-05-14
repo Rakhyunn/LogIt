@@ -48,3 +48,4 @@
   - profile/[username]/edit/page.tsx: 프로필 수정 페이지, 소유자 검증 (commit: d788e53)
   - tsc --noEmit: 오류 없음, eslint: 기존 warning 2개 (신규 없음)
 - [x] Bookmark 도메인 구현 (목록 카드 + 상세 페이지 Optimistic UI 토글, isPending 비활성화, 비로그인 리다이렉트)
+- [x] 공통 네비게이션 헤더 구현 (로고, + 등록, 내 프로필, 로그아웃)

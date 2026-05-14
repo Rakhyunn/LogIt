@@ -28,8 +28,8 @@ export function ProfileTabs({ username, isOwner }: ProfileTabsProps) {
           onClick={() => router.push(`/profile/${username}?tab=${key}`)}
           className={`pb-2 text-sm font-medium transition-colors ${
             activeTab === key
-              ? 'border-b-2 border-foreground text-foreground'
-              : 'text-muted-foreground hover:text-foreground'
+              ? 'border-b-2 border-primary text-foreground'
+              : 'text-muted-foreground hover:text-primary'
           }`}
         >
           {label}

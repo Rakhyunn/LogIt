@@ -12,9 +12,9 @@ export default function Error({
   reset: () => void
 }) {
   return (
-    <main className="container mx-auto p-4 max-w-2xl min-h-[50vh] flex flex-col items-center justify-center gap-4">
+    <main className="mx-auto max-w-2xl min-h-[50vh] flex flex-col items-center justify-center gap-4 px-4">
       <AlertCircle className="h-12 w-12 text-destructive" />
-      <p className="text-muted-foreground">콘텐츠를 불러오는데 실패했습니다.</p>
+      <p className="text-muted-foreground">프로필을 불러오는데 실패했습니다.</p>
       <div className="flex gap-3">
         <Button variant="outline" onClick={reset}>다시 시도</Button>
         <Button asChild variant="ghost">

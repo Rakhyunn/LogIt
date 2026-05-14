@@ -1,18 +1,26 @@
 'use client'
 
+import Link from 'next/link'
+import { AlertCircle } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+
 export default function Error({
-  error,
+  error: _error,
   reset,
 }: {
   error: Error
   reset: () => void
 }) {
   return (
-    <main className="container mx-auto p-4 text-center space-y-4 py-20">
-      <p className="text-muted-foreground">콘텐츠를 불러오는데 실패했습니다.</p>
-      <button onClick={reset} className="text-sm hover:underline">
-        다시 시도
-      </button>
+    <main className="min-h-[50vh] flex flex-col items-center justify-center gap-4">
+      <AlertCircle className="h-12 w-12 text-destructive" />
+      <p className="text-muted-foreground">페이지를 불러오는데 실패했습니다.</p>
+      <div className="flex gap-3">
+        <Button variant="outline" onClick={reset}>다시 시도</Button>
+        <Button asChild variant="ghost">
+          <Link href="/">홈으로</Link>
+        </Button>
+      </div>
     </main>
   )
 }

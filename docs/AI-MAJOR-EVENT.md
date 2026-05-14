@@ -2,6 +2,49 @@
 
 ---
 
+## 2026-05-14 — UX/UI 완성
+
+### 앱 이름 결정
+- **결정:** 앱 이름을 **LogIt**으로 확정
+- **이유:** 사용자 직접 결정
+- **영향:** layout.tsx 메타데이터, 헤더 로고 텍스트 변경
+
+### UI/UX 디자인 방향 결정 — 따뜻한 톤
+- **결정:** 크림/오프화이트 베이스(#FAFAF8), 브라운 포인트(#8B6F47), serif 헤딩(Playfair Display), 부드러운 카드(rounded-2xl, shadow)
+- **이유:** Readwise/Airbnb/Notion 라이트모드 레퍼런스 참고. 감성적이고 따뜻한 분위기 지향
+- **영향:** globals.css CSS 변수 전면 변경, layout.tsx 폰트 추가, 주요 컴포넌트 스타일 업데이트
+
+### 아바타 위치 조정 방식 결정
+- **결정:** 업로드 후 원형 미리보기 안에서 드래그로 focal point 조정. `object-position: x% y%` CSS로 저장
+- **이유:** 라이브러리 없이 순수 마우스 이벤트로 구현. 의존성 최소화
+- **영향:** `profiles.avatar_position jsonb` 컬럼 추가, AvatarUpload Client Component 구현
+
+### 네비게이션 버튼 중복 제거 결정
+- **결정:** 홈 페이지의 `+ 등록` 버튼 제거. 헤더 네비게이션에만 유지
+- **이유:** 헤더에 이미 동일 기능 버튼 존재 → UX 중복
+- **영향:** `app/(main)/page.tsx` 버튼 제거
+
+---
+
+## 2026-05-13 — 핵심 도메인 구현
+
+### Bookmark Optimistic UI 패턴 결정
+- **결정:** `useOptimistic` + `useTransition` + `router.refresh()` 조합. 실패 시 자동 롤백
+- **이유:** Next.js 15+ 표준 패턴. BookmarkButton → FollowButton으로 동일 패턴 재사용
+- **영향:** 모든 인터랙티브 토글 버튼이 동일 패턴 사용
+
+### ContentCard bookmarkSlot render prop 결정
+- **결정:** ContentCard가 `bookmarkSlot?: React.ReactNode`를 받아 렌더링. 북마크 도메인 로직은 ContentCard 외부에서 주입
+- **이유:** ContentCard가 특정 도메인에 직접 의존하지 않도록 분리 (DOMAIN-COMMON-CONSTITUTION 원칙)
+- **영향:** 홈 페이지에서 북마크 상태 일괄 조회 후 슬롯으로 전달
+
+### 타인 프로필 북마크 탭 숨김 결정
+- **결정:** 본인 프로필에서만 북마크 탭 표시. 타인 프로필에서는 숨김
+- **이유:** RLS가 `user_id = auth.uid()` 조건으로 걸려 타인 북마크 조회 불가 → 빈 탭 표시 대신 탭 자체 숨김이 자연스러움
+- **영향:** `ProfileTabs.isOwner` prop 추가
+
+---
+
 ## 2026-05-12 — 프로젝트 초기화
 
 ### 기술 스택 결정

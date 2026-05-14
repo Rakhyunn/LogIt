@@ -18,7 +18,7 @@ export function BookmarkButton({
 }: BookmarkButtonProps) {
   const router = useRouter()
   const [optimisticBookmarked, setOptimisticBookmarked] = useOptimistic(initialBookmarked)
-  const [, startTransition] = useTransition()
+  const [isPending, startTransition] = useTransition()
 
   function handleClick() {
     if (!isLoggedIn) {
@@ -27,10 +27,11 @@ export function BookmarkButton({
     }
     startTransition(async () => {
       setOptimisticBookmarked(!optimisticBookmarked)
-      if (optimisticBookmarked) {
-        await removeBookmark(contentId)
-      } else {
-        await addBookmark(contentId)
+      const result = optimisticBookmarked
+        ? await removeBookmark(contentId)
+        : await addBookmark(contentId)
+      if (!result.success) {
+        router.refresh()
       }
     })
   }
@@ -39,7 +40,8 @@ export function BookmarkButton({
     <button
       type="button"
       onClick={handleClick}
-      className="rounded-full bg-background/80 p-1.5 backdrop-blur-sm transition-colors hover:bg-background"
+      disabled={isPending}
+      className="rounded-full bg-background/80 p-1.5 backdrop-blur-sm transition-colors hover:bg-background disabled:opacity-50"
       aria-label={optimisticBookmarked ? '북마크 제거' : '북마크 추가'}
     >
       <Bookmark

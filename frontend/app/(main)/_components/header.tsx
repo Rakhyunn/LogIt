@@ -22,9 +22,9 @@ export async function Header() {
   const position = (profile.avatar_position as { x: number; y: number } | null) ?? { x: 50, y: 50 }
 
   return (
-    <header className="sticky top-0 z-50 bg-background border-b">
+    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/50">
       <nav className="container mx-auto px-4 h-14 flex items-center justify-between">
-        <Link href="/" className="font-bold text-lg">
+        <Link href="/" className="text-xl font-bold" style={{ fontFamily: 'var(--font-heading)' }}>
           LogIt
         </Link>
         <div className="flex items-center gap-4">

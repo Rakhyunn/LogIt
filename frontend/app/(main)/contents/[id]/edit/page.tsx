@@ -18,5 +18,9 @@ export default async function EditContentPage({
   if (!content) notFound()
   if (!user || content.created_by !== user.id) redirect(`/contents/${id}`)
 
-  return <ContentForm content={content} />
+  return (
+    <div className="bg-card rounded-2xl shadow-sm p-6 border border-border/40">
+      <ContentForm content={content} />
+    </div>
+  )
 }

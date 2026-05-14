@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "콘텐츠 리뷰 플랫폼",
+  title: "LogIt",
   description: "영화, 드라마, 책 리뷰를 작성하고 공유하는 플랫폼",
 };
 

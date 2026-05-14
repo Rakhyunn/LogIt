@@ -23,7 +23,7 @@ export async function Header() {
     <header className="sticky top-0 z-50 bg-background border-b">
       <nav className="container mx-auto px-4 h-14 flex items-center justify-between">
         <Link href="/" className="font-bold text-lg">
-          프로필
+          LogIt
         </Link>
         <div className="flex items-center gap-4">
           <Link

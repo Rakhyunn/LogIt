@@ -34,7 +34,9 @@ export default async function ProfileEditPage({ params }: ProfileEditPageProps) 
           username과 자기소개를 수정할 수 있습니다.
         </p>
       </div>
-      <ProfileEditForm profile={profile} />
+      <div className="bg-card rounded-2xl shadow-sm p-6 border border-border/40">
+        <ProfileEditForm profile={profile} />
+      </div>
     </div>
   )
 }

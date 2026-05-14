@@ -45,8 +45,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     : new Set<string>()
 
   return (
-    <main className="container mx-auto p-4 space-y-6">
-      <h1 className="text-2xl font-bold">콘텐츠</h1>
+    <main className="container mx-auto p-6 space-y-8">
+      <h1 className="text-3xl font-bold">콘텐츠</h1>
 
       <Suspense fallback={<div className="h-10 w-80 bg-muted rounded animate-pulse" />}>
         <ContentFilter />

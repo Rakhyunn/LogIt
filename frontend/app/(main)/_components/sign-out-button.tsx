@@ -2,13 +2,10 @@
 
 import { signOut } from '@/actions/auth'
 
-async function handleSignOut() {
-  await signOut()
-}
-
 export function SignOutButton() {
   return (
-    <form action={handleSignOut}>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    <form action={signOut as any}>
       <button
         type="submit"
         className="text-sm text-muted-foreground hover:text-foreground transition-colors"

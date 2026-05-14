@@ -5,6 +5,7 @@ import Image from 'next/image'
 import ReviewSection from './_components/review-section'
 import { BookmarkButton } from '../../_components/bookmark-button'
 import { FollowButton } from '../../_components/follow-button'
+import { Avatar } from '../../_components/avatar'
 import { createClient } from '@/lib/supabase/server'
 import { deleteContent } from '@/actions/contents'
 import { type ContentMeta, type MovieMeta, type DramaMeta, type BookMeta } from '@/types/content'
@@ -78,7 +79,7 @@ export default async function ContentDetailPage({
 
   const [authorProfileResult, followResult] = createdBy
     ? await Promise.all([
-        supabase.from('profiles').select('username').eq('id', createdBy).maybeSingle(),
+        supabase.from('profiles').select('username, avatar_url, avatar_position').eq('id', createdBy).maybeSingle(),
         user && !isOwner
           ? supabase
               .from('follows')
@@ -123,8 +124,14 @@ export default async function ContentDetailPage({
             <div className="flex items-center justify-between">
               <Link
                 href={`/profile/${authorProfile.username}`}
-                className="text-sm font-medium hover:underline"
+                className="flex items-center gap-2 text-sm font-medium hover:underline"
               >
+                <Avatar
+                  avatarUrl={authorProfile.avatar_url}
+                  position={(authorProfile.avatar_position as { x: number; y: number } | null) ?? { x: 50, y: 50 }}
+                  size="sm"
+                  username={authorProfile.username}
+                />
                 @{authorProfile.username}
               </Link>
               {!isOwner && (

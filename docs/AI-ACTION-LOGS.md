@@ -2,7 +2,34 @@
 
 ---
 
+## 2026-05-14
+
+### [23] User 도메인 구현 2단계 완료
+- profile/[username]/page.tsx: Suspense 스트리밍, ProfileHeader/Tabs/ReviewsTab/BookmarksTab 조합 (commit: 0b538fe)
+- _components/profile-edit-form.tsx: useState + useTransition, username 중복 확인 버튼, updateProfile 호출 (commit: 94cbeed)
+- profile/[username]/edit/page.tsx: 소유자 검증(profile.id !== user.id → redirect), ProfileEditForm 렌더 (commit: d788e53)
+- tsc --noEmit: 오류 없음 / eslint: 신규 warning 없음 (기존 error.tsx 2개 warning만 존재)
+- 문서 정리: TODO-DOING 초기화, TODO-DONE 업데이트, CONTEXT 현행화, TODO-READY 북마크 미완 항목 유지
+
+---
+
 ## 2026-05-13
+
+### [22] User 도메인 구현 1단계 (중단)
+- database.ts: reviews·bookmarks Relationships 추가
+- actions/user.ts: checkUsername (마지막 커밋 기준 .neq + .maybeSingle), updateProfile (23505 처리, redirect)
+- _components/ 5개: profile-not-found, profile-header, profile-tabs, reviews-tab, bookmarks-tab
+- reviews-tab·bookmarks-tab: error handling 추가 (if error throw), Array.isArray 제거
+- 마지막 커밋: 32a0fd9
+- 재개 시작점: Task 8 (profile/[username]/page.tsx)
+
+### [21] User 도메인 설계
+- spec: docs/superpowers/specs/2026-05-13-user-profile-design.md
+- plan: docs/superpowers/plans/2026-05-13-user-profile.md
+
+### [20] User 도메인 문서 작성
+- docs/DOMAIN-USER-CONSTITUTION.md 생성 (5개 원칙)
+- docs/DOMAIN-USER-STATUTE.md 생성 (라우트, DB 스키마, Server Actions, 팔로우 규칙)
 
 ### [19] Review 도메인 구현
 - constants/review-tags.ts: preset 태그 10개 (as const, ReviewTag 타입)

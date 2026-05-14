@@ -4,9 +4,9 @@
 
 ---
 
-## 현재 상태 (2026-05-13)
+## 현재 상태 (2026-05-14)
 
-**Review 도메인 구현 완료.** 다음 작업: User 도메인 문서 작성 → 구현.
+**User 도메인 구현 완료.** 다음 작업: Bookmark 도메인 문서 작성 → 구현.
 
 **스택:**
 - Frontend: Next.js 16.2.6 (App Router, TypeScript, Tailwind v4, shadcn/ui)

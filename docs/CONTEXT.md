@@ -6,7 +6,7 @@
 
 ## 현재 상태 (2026-05-14)
 
-**로딩/에러 상태 처리 완료.** 다음 작업: 전체적인 UI/UX 개선.
+**UI/UX 리디자인 완료.** 모든 주요 기능 구현 완료.
 
 **스택:**
 - Frontend: Next.js 16.2.6 (App Router, TypeScript, Tailwind v4, shadcn/ui)

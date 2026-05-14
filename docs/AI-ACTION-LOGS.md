@@ -4,6 +4,14 @@
 
 ## 2026-05-14
 
+### [31] UI/UX 리디자인 — 따뜻한 톤
+- globals.css: 크림/브라운 팔레트(oklch), radius 0.875rem
+- layout.tsx: Playfair Display 폰트 추가 (--font-heading)
+- button.tsx: hover:-translate-y-0.5 리프트 효과
+- header.tsx: backdrop-blur-sm, LogIt serif 폰트
+- content-card.tsx: rounded-2xl, shadow, 호버 리프트
+- 홈/상세/프로필/폼 페이지: 여백 증가, text-3xl 헤딩, 카드 래퍼
+
 ### [30] 로딩/에러 상태 처리 구현
 - error.tsx 3개 개선: AlertCircle + 메시지 + 다시 시도/홈으로 버튼
 - profile/[username]/loading.tsx: 프로필 헤더+탭+리스트 상세 스켈레톤

@@ -4,6 +4,13 @@
 
 ## 2026-05-14
 
+### [25] Bookmark 버그 수정 (테스트 통과)
+- content-card.tsx: bookmarkSlot을 Link 바깥 div로 이동 → 클릭 시 상세 페이지 이동 버그 수정
+- bookmark-button.tsx: handleClick에 e.stopPropagation() 추가
+- ContentCard에 'use client' 추가 (onClick 핸들러 필요)
+- profile-tabs.tsx: isOwner prop 추가, 타인 프로필에서 북마크 탭 숨김
+- profile/[username]/page.tsx: isOwner 전달, ?tab=bookmarks 직접 접근 시 reviews 폴백
+
 ### [24] Bookmark 도메인 구현 완료
 - actions/bookmarks.ts: addBookmark, removeBookmark (RLS 이중 보호, 23505 처리)
 - bookmark-button.tsx: useOptimistic + useTransition, isPending 비활성화, 실패 시 router.refresh(), 비로그인 /login 리다이렉트

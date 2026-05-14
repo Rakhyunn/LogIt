@@ -1,11 +1,8 @@
 import { Suspense } from 'react'
-import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import ContentCard from './_components/content-card'
 import ContentFilter from './_components/content-filter'
 import { BookmarkButton } from './_components/bookmark-button'
-import { buttonVariants } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
 import { type ContentType } from '@/types/database'
 
 interface HomePageProps {
@@ -49,12 +46,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
   return (
     <main className="container mx-auto p-4 space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">콘텐츠</h1>
-        <Link href="/contents/new" className={cn(buttonVariants({ size: 'sm' }))}>
-          + 등록
-        </Link>
-      </div>
+      <h1 className="text-2xl font-bold">콘텐츠</h1>
 
       <Suspense fallback={<div className="h-10 w-80 bg-muted rounded animate-pulse" />}>
         <ContentFilter />

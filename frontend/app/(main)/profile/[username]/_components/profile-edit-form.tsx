@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { checkUsername, updateProfile } from '@/actions/user'
 import { type Database } from '@/types/database'
+import { AvatarUpload } from './avatar-upload'
 
 type Profile = Database['public']['Tables']['profiles']['Row']
 
@@ -23,6 +24,10 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
   const [isChecking, setIsChecking] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
+
+  const currentPosition = (profile.avatar_position as { x: number; y: number } | null) ?? { x: 50, y: 50 }
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(profile.avatar_url)
+  const [avatarPosition, setAvatarPosition] = useState(currentPosition)
 
   const isUsernameChanged = usernameValue !== profile.username
 
@@ -56,6 +61,23 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
 
   return (
     <form action={handleSubmit} className="space-y-6">
+      {/* hidden inputs for avatar */}
+      <input type="hidden" name="avatar_url" value={avatarUrl ?? ''} />
+      <input type="hidden" name="avatar_position" value={JSON.stringify(avatarPosition)} />
+
+      <div className="space-y-2">
+        <Label>프로필 이미지</Label>
+        <AvatarUpload
+          currentAvatarUrl={profile.avatar_url}
+          currentPosition={currentPosition}
+          userId={profile.id}
+          onAvatarChange={(url, pos) => {
+            setAvatarUrl(url)
+            setAvatarPosition(pos)
+          }}
+        />
+      </div>
+
       <div className="space-y-2">
         <Label htmlFor="username">Username</Label>
         <div className="flex gap-2">

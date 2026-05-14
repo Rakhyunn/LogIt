@@ -74,19 +74,21 @@ export default async function ContentDetailPage({
   const isBookmarked = !!bookmark
   const isOwner = !!user && user.id === content.created_by
 
-  const createdBy = content.created_by ?? ''
+  const createdBy = content.created_by
 
-  const [authorProfileResult, followResult] = await Promise.all([
-    supabase.from('profiles').select('username').eq('id', createdBy).maybeSingle(),
-    user && !isOwner
-      ? supabase
-          .from('follows')
-          .select('follower_id')
-          .eq('follower_id', user.id)
-          .eq('following_id', createdBy)
-          .maybeSingle()
-      : Promise.resolve({ data: null }),
-  ])
+  const [authorProfileResult, followResult] = createdBy
+    ? await Promise.all([
+        supabase.from('profiles').select('username').eq('id', createdBy).maybeSingle(),
+        user && !isOwner
+          ? supabase
+              .from('follows')
+              .select('follower_id')
+              .eq('follower_id', user.id)
+              .eq('following_id', createdBy)
+              .maybeSingle()
+          : Promise.resolve({ data: null }),
+      ])
+    : [{ data: null }, { data: null }]
 
   const authorProfile = authorProfileResult.data
   const isFollowingAuthor = !!followResult.data
@@ -117,7 +119,7 @@ export default async function ContentDetailPage({
         )}
 
         <div className="space-y-3 flex-1 min-w-0">
-          {authorProfile && (
+          {authorProfile && createdBy && (
             <div className="flex items-center justify-between">
               <Link
                 href={`/profile/${authorProfile.username}`}

@@ -78,7 +78,7 @@ export async function followUser(targetUserId: string): Promise<ActionResult> {
     return { success: false, message: '팔로우에 실패했습니다.' }
   }
 
-  revalidatePath('/', 'layout')
+  revalidatePath('/profile', 'layout')
   return { success: true, data: undefined }
 }
 
@@ -101,6 +101,6 @@ export async function unfollowUser(targetUserId: string): Promise<ActionResult> 
     return { success: false, message: '언팔로우에 실패했습니다.' }
   }
 
-  revalidatePath('/', 'layout')
+  revalidatePath('/profile', 'layout')
   return { success: true, data: undefined }
 }

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import ReviewSection from './_components/review-section'
 import { BookmarkButton } from '../../_components/bookmark-button'
+import { FollowButton } from '../../_components/follow-button'
 import { createClient } from '@/lib/supabase/server'
 import { deleteContent } from '@/actions/contents'
 import { type ContentMeta, type MovieMeta, type DramaMeta, type BookMeta } from '@/types/content'
@@ -72,6 +73,24 @@ export default async function ContentDetailPage({
 
   const isBookmarked = !!bookmark
   const isOwner = !!user && user.id === content.created_by
+
+  const createdBy = content.created_by ?? ''
+
+  const [authorProfileResult, followResult] = await Promise.all([
+    supabase.from('profiles').select('username').eq('id', createdBy).single(),
+    user && !isOwner
+      ? supabase
+          .from('follows')
+          .select('follower_id')
+          .eq('follower_id', user.id)
+          .eq('following_id', createdBy)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+  ])
+
+  const authorProfile = authorProfileResult.data
+  const isFollowingAuthor = !!followResult.data
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const deleteWithId = deleteContent.bind(null, id) as any
 
@@ -98,6 +117,23 @@ export default async function ContentDetailPage({
         )}
 
         <div className="space-y-3 flex-1 min-w-0">
+          {authorProfile && (
+            <div className="flex items-center justify-between">
+              <Link
+                href={`/profile/${authorProfile.username}`}
+                className="text-sm font-medium hover:underline"
+              >
+                @{authorProfile.username}
+              </Link>
+              {!isOwner && (
+                <FollowButton
+                  targetUserId={createdBy}
+                  initialFollowing={isFollowingAuthor}
+                  isLoggedIn={!!user}
+                />
+              )}
+            </div>
+          )}
           <div>
             <span className="text-xs text-muted-foreground">
               {TYPE_LABEL[content.type]}

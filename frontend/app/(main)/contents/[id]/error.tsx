@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { AlertCircle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 
 export default function Error({
   error: _error,
@@ -17,9 +17,7 @@ export default function Error({
       <p className="text-muted-foreground">콘텐츠를 불러오는데 실패했습니다.</p>
       <div className="flex gap-3">
         <Button variant="outline" onClick={reset}>다시 시도</Button>
-        <Button asChild variant="ghost">
-          <Link href="/">홈으로</Link>
-        </Button>
+        <Link href="/" className={buttonVariants({ variant: 'ghost' })}>홈으로</Link>
       </div>
     </main>
   )

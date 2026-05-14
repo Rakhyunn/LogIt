@@ -22,6 +22,24 @@
 
 ---
 
+## 스크린샷
+
+### 홈 — 콘텐츠 목록
+![홈 화면](./docs/screenshots/home.png)
+
+### 콘텐츠 상세 + 리뷰
+![콘텐츠 상세](./docs/screenshots/content-detail.png)
+
+### 프로필 페이지
+![프로필](./docs/screenshots/profile.png)
+
+### 프로필 수정 — 아바타 업로드
+![프로필 수정](./docs/screenshots/profile-edit.png)
+
+> 📁 스크린샷은 `docs/screenshots/` 폴더에 추가하세요.
+
+---
+
 ## 주요 기능
 
 ### 📼 콘텐츠 관리

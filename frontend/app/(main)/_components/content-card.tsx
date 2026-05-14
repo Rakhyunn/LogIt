@@ -10,7 +10,13 @@ const TYPE_LABEL: Record<string, string> = {
   book: '책',
 }
 
-export default function ContentCard({ content }: { content: Content }) {
+export default function ContentCard({
+  content,
+  bookmarkSlot,
+}: {
+  content: Content
+  bookmarkSlot?: React.ReactNode
+}) {
   return (
     <Link
       href={`/contents/${content.id}`}
@@ -27,6 +33,11 @@ export default function ContentCard({ content }: { content: Content }) {
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-muted-foreground text-xs">
             이미지 없음
+          </div>
+        )}
+        {bookmarkSlot && (
+          <div className="absolute top-2 right-2 z-10" onClick={(e) => e.preventDefault()}>
+            {bookmarkSlot}
           </div>
         )}
       </div>

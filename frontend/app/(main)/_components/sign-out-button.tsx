@@ -2,11 +2,11 @@
 
 import { signOut } from '@/actions/auth'
 
-export function SignOutButton() {
-  const handleSignOut = async () => {
-    await signOut()
-  }
+async function handleSignOut() {
+  await signOut()
+}
 
+export function SignOutButton() {
   return (
     <form action={handleSignOut}>
       <button

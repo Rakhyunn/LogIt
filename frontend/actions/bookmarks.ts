@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { type ActionResult } from '@/actions/auth'
+import { revalidatePath } from 'next/cache'
 
 export async function addBookmark(contentId: string): Promise<ActionResult> {
   const supabase = await createClient()
@@ -18,6 +19,8 @@ export async function addBookmark(contentId: string): Promise<ActionResult> {
     return { success: false, message: '북마크 추가에 실패했습니다.' }
   }
 
+  revalidatePath('/')
+  revalidatePath(`/contents/${contentId}`)
   return { success: true, data: undefined }
 }
 
@@ -37,5 +40,7 @@ export async function removeBookmark(contentId: string): Promise<ActionResult> {
     return { success: false, message: '북마크 제거에 실패했습니다.' }
   }
 
+  revalidatePath('/')
+  revalidatePath(`/contents/${contentId}`)
   return { success: true, data: undefined }
 }

@@ -20,7 +20,8 @@ export function BookmarkButton({
   const [optimisticBookmarked, setOptimisticBookmarked] = useOptimistic(initialBookmarked)
   const [isPending, startTransition] = useTransition()
 
-  function handleClick() {
+  function handleClick(e: React.MouseEvent) {
+    e.stopPropagation()
     if (!isLoggedIn) {
       router.push('/login')
       return

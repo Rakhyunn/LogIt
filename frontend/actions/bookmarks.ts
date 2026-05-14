@@ -14,6 +14,7 @@ export async function addBookmark(contentId: string): Promise<ActionResult> {
 
   if (error) {
     if (process.env.NODE_ENV === 'development') console.error(error)
+    if (error.code === '23505') return { success: false, message: '이미 북마크한 콘텐츠입니다.' }
     return { success: false, message: '북마크 추가에 실패했습니다.' }
   }
 

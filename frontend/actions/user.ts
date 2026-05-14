@@ -59,3 +59,48 @@ export async function updateProfile(formData: FormData): Promise<ActionResult> {
   revalidatePath(`/profile/${username}`, 'layout')
   redirect(`/profile/${username}`)
 }
+
+export async function followUser(targetUserId: string): Promise<ActionResult> {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) return { success: false, message: '로그인이 필요합니다.' }
+  if (targetUserId === user.id) return { success: false, message: '자기 자신을 팔로우할 수 없습니다.' }
+
+  const { error } = await supabase
+    .from('follows')
+    .insert({ follower_id: user.id, following_id: targetUserId })
+
+  if (error) {
+    if (process.env.NODE_ENV === 'development') console.error(error)
+    return { success: false, message: '팔로우에 실패했습니다.' }
+  }
+
+  revalidatePath('/', 'layout')
+  return { success: true, data: undefined }
+}
+
+export async function unfollowUser(targetUserId: string): Promise<ActionResult> {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) return { success: false, message: '로그인이 필요합니다.' }
+
+  const { error } = await supabase
+    .from('follows')
+    .delete()
+    .eq('follower_id', user.id)
+    .eq('following_id', targetUserId)
+
+  if (error) {
+    if (process.env.NODE_ENV === 'development') console.error(error)
+    return { success: false, message: '언팔로우에 실패했습니다.' }
+  }
+
+  revalidatePath('/', 'layout')
+  return { success: true, data: undefined }
+}

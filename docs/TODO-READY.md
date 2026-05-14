@@ -15,10 +15,17 @@
 - [x] docs/DOMAIN-CONTENT-STATUTE.md 생성 (콘텐츠 도메인 규칙)
 - [x] docs/DOMAIN-REVIEW-CONSTITUTION.md 생성 (리뷰 도메인 원칙)
 - [x] docs/DOMAIN-REVIEW-STATUTE.md 생성 (리뷰 도메인 규칙)
-- [ ] docs/DOMAIN-USER-CONSTITUTION.md 생성 (유저/프로필 도메인 원칙)
-- [ ] docs/DOMAIN-USER-STATUTE.md 생성 (유저/프로필 도메인 규칙)
-- [ ] docs/DOMAIN-BOOKMARK-CONSTITUTION.md 생성 (북마크 도메인 원칙)
-- [ ] docs/DOMAIN-BOOKMARK-STATUTE.md 생성 (북마크 도메인 규칙)
+- [x] docs/DOMAIN-USER-CONSTITUTION.md 생성 (유저/프로필 도메인 원칙)
+- [x] docs/DOMAIN-USER-STATUTE.md 생성 (유저/프로필 도메인 규칙)
+- [x] docs/DOMAIN-BOOKMARK-CONSTITUTION.md 생성 (북마크 도메인 원칙)
+- [x] docs/DOMAIN-BOOKMARK-STATUTE.md 생성 (북마크 도메인 규칙)
+
+## 공통 네비게이션 (Bookmark 도메인 이후)
+
+> 현재 `(main)/layout.tsx`는 pass-through. 테스트 완료 후 설계 예정.
+
+- [ ] 글로벌 네비게이션 브레인스토밍 (홈 / 내 프로필 / 로그아웃 등)
+- [ ] `app/(main)/layout.tsx` 네비게이션 헤더 구현 (아바타 포함 여부 설계 시 결정)
 
 ## 아키텍처 문서 작성
 

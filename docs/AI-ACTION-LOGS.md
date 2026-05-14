@@ -4,6 +4,11 @@
 
 ## 2026-05-14
 
+### [30] 로딩/에러 상태 처리 구현
+- error.tsx 3개 개선: AlertCircle + 메시지 + 다시 시도/홈으로 버튼
+- profile/[username]/loading.tsx: 프로필 헤더+탭+리스트 상세 스켈레톤
+- edit/new 폼 3개 loading.tsx: 단순 카드 스켈레톤
+
 ### [29] 아바타 업로드 구현 (Plan B)
 - avatar-upload.tsx: 파일 선택 즉시 업로드, 드래그 포컬포인트 조정, 삭제 기능
 - actions/user.ts: updateProfile에 avatar_url, avatar_position 저장 추가

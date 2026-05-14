@@ -4,8 +4,7 @@ import { signOut } from '@/actions/auth'
 
 export function SignOutButton() {
   return (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    <form action={signOut as any}>
+    <form action={async () => { await signOut() }}>
       <button
         type="submit"
         className="text-sm text-muted-foreground hover:text-foreground transition-colors"

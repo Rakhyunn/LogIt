@@ -13,11 +13,11 @@ export async function Header() {
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('username')
+    .select('username, is_profile_setup')
     .eq('id', user.id)
     .single()
 
-  if (!profile) return null
+  if (!profile || !profile.is_profile_setup) return null
 
   return (
     <header className="sticky top-0 z-50 bg-background border-b">

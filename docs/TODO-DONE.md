@@ -50,3 +50,4 @@
 - [x] Bookmark 도메인 구현 (목록 카드 + 상세 페이지 Optimistic UI 토글, isPending 비활성화, 비로그인 리다이렉트)
 - [x] 공통 네비게이션 헤더 구현 (로고, + 등록, 내 프로필, 로그아웃)
 - [x] 팔로우/언팔로우 구현 (프로필 + 콘텐츠 상세, Optimistic UI, 팔로워/팔로잉 수 표시)
+- [x] 아바타 이미지 업로드 + 위치 조정 구현 (drag focal point, avatars 버킷)

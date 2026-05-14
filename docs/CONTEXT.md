@@ -6,7 +6,7 @@
 
 ## 현재 상태 (2026-05-14)
 
-**아바타 표시 구현 완료 (Plan A).** 다음: 아바타 업로드 구현 (Plan B).
+**아바타 기능 구현 완료.** 다음 작업: 로딩/에러 상태 처리.
 
 **스택:**
 - Frontend: Next.js 16.2.6 (App Router, TypeScript, Tailwind v4, shadcn/ui)

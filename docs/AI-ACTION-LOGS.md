@@ -4,6 +4,11 @@
 
 ## 2026-05-14
 
+### [29] 아바타 업로드 구현 (Plan B)
+- avatar-upload.tsx: 파일 선택 즉시 업로드, 드래그 포컬포인트 조정, 삭제 기능
+- actions/user.ts: updateProfile에 avatar_url, avatar_position 저장 추가
+- profile-edit-form.tsx: AvatarUpload 통합, hidden inputs로 formData 전달
+
 ### [28] 아바타 표시 구현 (Plan A)
 - DB: avatar_position jsonb 컬럼 + avatars Storage 버킷 + RLS
 - avatar.tsx: 공유 Avatar 컴포넌트 (sm/md/lg, object-position, UserCircle 폴백)

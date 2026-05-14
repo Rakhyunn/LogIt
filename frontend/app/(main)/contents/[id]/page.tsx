@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import ReviewSection from './_components/review-section'
+import { BookmarkButton } from '../../_components/bookmark-button'
 import { createClient } from '@/lib/supabase/server'
 import { deleteContent } from '@/actions/contents'
 import { type ContentMeta, type MovieMeta, type DramaMeta, type BookMeta } from '@/types/content'
@@ -60,6 +61,16 @@ export default async function ContentDetailPage({
 
   if (!content) notFound()
 
+  const { data: bookmark } = user
+    ? await supabase
+        .from('bookmarks')
+        .select('content_id')
+        .eq('user_id', user.id)
+        .eq('content_id', id)
+        .maybeSingle()
+    : { data: null }
+
+  const isBookmarked = !!bookmark
   const isOwner = !!user && user.id === content.created_by
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const deleteWithId = deleteContent.bind(null, id) as any
@@ -100,6 +111,13 @@ export default async function ContentDetailPage({
           {content.description && (
             <p className="text-sm text-muted-foreground">{content.description}</p>
           )}
+          <div className="pt-1">
+            <BookmarkButton
+              contentId={id}
+              initialBookmarked={isBookmarked}
+              isLoggedIn={!!user}
+            />
+          </div>
         </div>
       </div>
 
@@ -122,7 +140,6 @@ export default async function ContentDetailPage({
         </div>
       )}
 
-      {/* 리뷰 섹션 — 스트리밍 */}
       <Suspense
         fallback={
           <div className="pt-6 border-t space-y-3">

@@ -6,7 +6,7 @@
 
 ## 현재 상태 (2026-05-14)
 
-**팔로우 도메인 구현 완료.** 다음 작업: UX 개선 (헤더 등록 버튼 정리, 아바타, 반응형).
+**아바타 표시 구현 완료 (Plan A).** 다음: 아바타 업로드 구현 (Plan B).
 
 **스택:**
 - Frontend: Next.js 16.2.6 (App Router, TypeScript, Tailwind v4, shadcn/ui)

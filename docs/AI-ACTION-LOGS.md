@@ -4,6 +4,13 @@
 
 ## 2026-05-14
 
+### [28] 아바타 표시 구현 (Plan A)
+- DB: avatar_position jsonb 컬럼 + avatars Storage 버킷 + RLS
+- avatar.tsx: 공유 Avatar 컴포넌트 (sm/md/lg, object-position, UserCircle 폴백)
+- header.tsx: Avatar sm 표시
+- profile-header.tsx: Avatar lg 표시, 레이아웃 조정
+- contents/[id]/page.tsx: 작성자 Avatar sm 표시
+
 ### [27] 팔로우 도메인 구현 완료
 - actions/user.ts: followUser, unfollowUser (자기 자신 팔로우 방지, revalidatePath)
 - follow-button.tsx: useOptimistic + useTransition, BookmarkButton과 동일 패턴

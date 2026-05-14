@@ -41,7 +41,7 @@ export interface Database {
           id: string
           username: string
           avatar_url: string | null
-          avatar_position: { x: number; y: number }
+          avatar_position: { x: number; y: number } | null
           bio: string | null
           is_profile_setup: boolean
           created_at: string

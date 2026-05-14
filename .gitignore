@@ -1,0 +1,10 @@
+# AI 도구 지시 파일
+CLAUDE.md
+
+# 환경변수
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db

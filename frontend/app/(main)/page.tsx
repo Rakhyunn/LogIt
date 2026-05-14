@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import ContentCard from './_components/content-card'
 import ContentFilter from './_components/content-filter'
+import { BookmarkButton } from './_components/bookmark-button'
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { type ContentType } from '@/types/database'
@@ -15,20 +16,36 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const { type, q } = await searchParams
   const supabase = await createClient()
 
-  let query = supabase
-    .from('contents')
-    .select('*')
-    .order('created_at', { ascending: false })
+  const [contentsResult, { data: { user } }] = await Promise.all([
+    (() => {
+      let query = supabase
+        .from('contents')
+        .select('*')
+        .order('created_at', { ascending: false })
+      if (type && ['movie', 'drama', 'book'].includes(type)) {
+        query = query.eq('type', type)
+      }
+      if (q) {
+        query = query.ilike('title', `%${q}%`)
+      }
+      return query
+    })(),
+    supabase.auth.getUser(),
+  ])
 
-  if (type && ['movie', 'drama', 'book'].includes(type)) {
-    query = query.eq('type', type)
-  }
-  if (q) {
-    query = query.ilike('title', `%${q}%`)
-  }
+  if (contentsResult.error) throw contentsResult.error
+  const contents = contentsResult.data
 
-  const { data: contents, error } = await query
-  if (error) throw error
+  const bookmarkedIds = user
+    ? new Set(
+        (
+          await supabase
+            .from('bookmarks')
+            .select('content_id')
+            .eq('user_id', user.id)
+        ).data?.map((b) => b.content_id) ?? []
+      )
+    : new Set<string>()
 
   return (
     <main className="container mx-auto p-4 space-y-6">
@@ -46,7 +63,17 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       {contents && contents.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {contents.map((content) => (
-            <ContentCard key={content.id} content={content} />
+            <ContentCard
+              key={content.id}
+              content={content}
+              bookmarkSlot={
+                <BookmarkButton
+                  contentId={content.id}
+                  initialBookmarked={bookmarkedIds.has(content.id)}
+                  isLoggedIn={!!user}
+                />
+              }
+            />
           ))}
         </div>
       ) : (

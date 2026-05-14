@@ -33,9 +33,39 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
   const isOwner = user?.id === profile.id
   const activeTab = !isOwner && tab === 'bookmarks' ? 'reviews' : tab
 
+  const [{ count: followerCount }, { count: followingCount }, followingRow] =
+    await Promise.all([
+      supabase
+        .from('follows')
+        .select('*', { count: 'exact', head: true })
+        .eq('following_id', profile.id),
+      supabase
+        .from('follows')
+        .select('*', { count: 'exact', head: true })
+        .eq('follower_id', profile.id),
+      user
+        ? supabase
+            .from('follows')
+            .select('follower_id')
+            .eq('follower_id', user.id)
+            .eq('following_id', profile.id)
+            .maybeSingle()
+        : Promise.resolve({ data: null }),
+    ])
+
+  const isFollowing = !!followingRow.data
+  const isLoggedIn = !!user
+
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 py-8">
-      <ProfileHeader profile={profile} isOwner={isOwner} />
+      <ProfileHeader
+        profile={profile}
+        isOwner={isOwner}
+        followerCount={followerCount ?? 0}
+        followingCount={followingCount ?? 0}
+        isFollowing={isFollowing}
+        isLoggedIn={isLoggedIn}
+      />
       <div className="space-y-4">
         <Suspense fallback={<div className="h-10 border-b" />}>
           <ProfileTabs username={username} isOwner={isOwner} />

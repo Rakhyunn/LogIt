@@ -45,9 +45,15 @@ export async function updateProfile(formData: FormData): Promise<ActionResult> {
 
   if (!user) return { success: false, message: '로그인이 필요합니다.' }
 
+  const avatarUrl = (formData.get('avatar_url') as string) || null
+  const avatarPositionRaw = formData.get('avatar_position') as string | null
+  const avatarPosition: { x: number; y: number } = avatarPositionRaw
+    ? JSON.parse(avatarPositionRaw)
+    : { x: 50, y: 50 }
+
   const { error } = await supabase
     .from('profiles')
-    .update({ username, bio })
+    .update({ username, bio, avatar_url: avatarUrl, avatar_position: avatarPosition })
     .eq('id', user.id)
 
   if (error) {

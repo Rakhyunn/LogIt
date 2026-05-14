@@ -31,13 +31,14 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
     data: { user },
   } = await supabase.auth.getUser()
   const isOwner = user?.id === profile.id
+  const activeTab = !isOwner && tab === 'bookmarks' ? 'reviews' : tab
 
   return (
     <div className="mx-auto max-w-2xl space-y-8 px-4 py-8">
       <ProfileHeader profile={profile} isOwner={isOwner} />
       <div className="space-y-4">
         <Suspense fallback={<div className="h-10 border-b" />}>
-          <ProfileTabs username={username} />
+          <ProfileTabs username={username} isOwner={isOwner} />
         </Suspense>
         <Suspense
           fallback={
@@ -46,7 +47,7 @@ export default async function ProfilePage({ params, searchParams }: ProfilePageP
             </p>
           }
         >
-          {tab === 'bookmarks' ? (
+          {activeTab === 'bookmarks' ? (
             <BookmarksTab userId={profile.id} />
           ) : (
             <ReviewsTab userId={profile.id} />

@@ -4,21 +4,24 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 interface ProfileTabsProps {
   username: string
+  isOwner: boolean
 }
 
-const TABS = [
+const ALL_TABS = [
   { key: 'reviews', label: '리뷰' },
   { key: 'bookmarks', label: '북마크' },
 ] as const
 
-export function ProfileTabs({ username }: ProfileTabsProps) {
+export function ProfileTabs({ username, isOwner }: ProfileTabsProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const activeTab = searchParams.get('tab') ?? 'reviews'
 
+  const tabs = isOwner ? ALL_TABS : ALL_TABS.filter((t) => t.key !== 'bookmarks')
+
   return (
     <div className="flex gap-6 border-b">
-      {TABS.map(({ key, label }) => (
+      {tabs.map(({ key, label }) => (
         <button
           key={key}
           type="button"

@@ -20,7 +20,7 @@ function MetaInfo({ type, metadata }: { type: string; metadata: ContentMeta }) {
   if (type === 'movie') {
     const m = metadata as MovieMeta
     return (
-      <ul className="text-sm text-muted-foreground space-y-1">
+      <ul className="text-sm text-muted-foreground space-y-2">
         <li>감독: {m.director}</li>
         <li>개봉: {m.release_year}년</li>
         <li>장르: {m.genres.join(', ')}</li>
@@ -30,7 +30,7 @@ function MetaInfo({ type, metadata }: { type: string; metadata: ContentMeta }) {
   if (type === 'drama') {
     const m = metadata as DramaMeta
     return (
-      <ul className="text-sm text-muted-foreground space-y-1">
+      <ul className="text-sm text-muted-foreground space-y-2">
         <li>감독: {m.director}</li>
         <li>방영: {m.air_year}년</li>
         <li>에피소드: {m.episodes}부작</li>
@@ -98,14 +98,14 @@ export default async function ContentDetailPage({
   const deleteWithId = deleteContent.bind(null, id) as any
 
   return (
-    <main className="container mx-auto p-4 max-w-2xl space-y-6">
+    <main className="container mx-auto p-6 max-w-2xl space-y-8">
       <Link href="/" className="text-sm text-muted-foreground hover:underline">
         ← 목록으로
       </Link>
 
       <div className="flex gap-6">
         {content.cover_image_url ? (
-          <div className="relative w-32 h-44 flex-shrink-0 rounded overflow-hidden border">
+          <div className="relative w-32 h-44 flex-shrink-0 rounded-2xl overflow-hidden border border-border/60">
             <Image
               src={content.cover_image_url}
               alt={content.title}
@@ -114,7 +114,7 @@ export default async function ContentDetailPage({
             />
           </div>
         ) : (
-          <div className="w-32 h-44 flex-shrink-0 rounded border bg-muted flex items-center justify-center text-xs text-muted-foreground">
+          <div className="w-32 h-44 flex-shrink-0 rounded-2xl border border-border/60 bg-muted flex items-center justify-center text-xs text-muted-foreground">
             이미지 없음
           </div>
         )}

@@ -27,7 +27,7 @@ export function ProfileHeader({
   const position = (profile.avatar_position as { x: number; y: number } | null) ?? { x: 50, y: 50 }
 
   return (
-    <div className="flex items-start justify-between">
+    <div className="flex items-start justify-between pb-2">
       <div className="flex items-start gap-4">
         <Avatar
           avatarUrl={profile.avatar_url}
@@ -36,7 +36,7 @@ export function ProfileHeader({
           username={profile.username}
         />
         <div className="space-y-1">
-          <h1 className="text-2xl font-bold">@{profile.username}</h1>
+          <h1 className="text-3xl font-bold">@{profile.username}</h1>
           {profile.bio && (
             <p className="text-muted-foreground">{profile.bio}</p>
           )}

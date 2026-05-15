@@ -33,16 +33,19 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   if (contentsResult.error) throw contentsResult.error
   const contents = contentsResult.data
 
-  const bookmarkedIds = user
-    ? new Set(
-        (
-          await supabase
-            .from('bookmarks')
-            .select('content_id')
-            .eq('user_id', user.id)
-        ).data?.map((b) => b.content_id) ?? []
-      )
-    : new Set<string>()
+  const contentIds = contents?.map((c) => c.id) ?? []
+  const bookmarkedIds =
+    user && contentIds.length > 0
+      ? new Set(
+          (
+            await supabase
+              .from('bookmarks')
+              .select('content_id')
+              .eq('user_id', user.id)
+              .in('content_id', contentIds)
+          ).data?.map((b) => b.content_id) ?? []
+        )
+      : new Set<string>()
 
   return (
     <main className="container mx-auto p-6 space-y-8">

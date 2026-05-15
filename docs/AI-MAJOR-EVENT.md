@@ -2,6 +2,43 @@
 
 ---
 
+## 2026-05-15 — 배포 후 성능 트러블슈팅
+
+### [TROUBLESHOOTING] Vercel 배포 환경에서 응답 속도 저하
+
+**현상**
+- 로컬 개발 환경 대비 Vercel 배포 환경에서 클릭 후 응답이 눈에 띄게 느림
+- 특히 콘텐츠 상세 페이지, 북마크/팔로우 인터랙션에서 체감
+
+**원인 분석**
+Vercel은 서버리스 함수 환경이므로 로컬과 달리 DB 커넥션을 재사용하지 않음.
+그 위에 코드 레벨의 불필요한 쿼리가 더해져 체감 지연이 증폭됨.
+
+| # | 위치 | 문제 | 영향 |
+|---|------|------|------|
+| 1 | `review-section.tsx` | `reviews` 조회 후 `profiles`를 별도 순차 쿼리 (2 round trips) | 콘텐츠 상세 페이지 로드마다 DB 왕복 1회 추가 |
+| 2 | `app/(main)/page.tsx` | 홈 북마크 조회 시 유저의 전체 북마크를 가져온 뒤 JS에서 필터 | 북마크가 많을수록 불필요한 데이터 전송 증가 |
+
+**적용한 수정**
+
+1. `review-section.tsx` — Supabase JOIN 쿼리로 2 round trips → 1회
+   ```
+   .select('*')  →  .select('*, profiles(username)')
+   + profiles 별도 쿼리 제거
+   ```
+
+2. `app/(main)/page.tsx` — 북마크 쿼리에 `.in('content_id', contentIds)` 추가
+   ```
+   전체 북마크 조회  →  현재 화면의 콘텐츠 ID만 필터링
+   ```
+
+**미적용 개선 사항 (향후 검토)**
+- Server Component에서 `getUser()` → `getSession()` 전환: auth 서버 왕복 제거 가능하나 미들웨어 의존성 명확화 필요
+- 홈 `select('*')` → 필요 컬럼만 선택: ContentCard 타입 변경 수반, 별도 리팩토링으로 진행
+- `revalidatePath('/profile', 'layout')` → 특정 username 경로로 narrowing: followUser 액션 시그니처 변경 필요
+
+---
+
 ## 2026-05-14 — UX/UI 완성
 
 ### 앱 이름 결정

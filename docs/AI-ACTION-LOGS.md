@@ -2,6 +2,15 @@
 
 ---
 
+## 2026-05-15
+
+### [32] DB 쿼리 성능 최적화 (배포 환경 속도 저하 대응)
+- review-section.tsx: profiles 별도 쿼리 제거 → `select('*, profiles(username)')` JOIN 1회로 통합
+- app/(main)/page.tsx: 북마크 조회에 `.in('content_id', contentIds)` 추가, 전체 조회 → 현재 화면 콘텐츠만 필터
+- AI-MAJOR-EVENT.md: 트러블슈팅 기록 추가 (현상/원인/수정/미적용 항목)
+
+---
+
 ## 2026-05-14
 
 ### [31] UI/UX 리디자인 — 따뜻한 톤

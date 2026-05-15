@@ -4,6 +4,11 @@
 
 ## 2026-05-15
 
+### [33] Vercel 함수 리전을 Seoul로 고정 (속도 저하 근본 원인 해소)
+- frontend/vercel.json 신규 생성: `"regions": ["icn1"]`
+- 원인: Vercel 기본 리전 US East ↔ Supabase Seoul 간 200~300ms 왕복 지연
+- AI-MAJOR-EVENT.md: 트러블슈팅 추가 기록
+
 ### [32] DB 쿼리 성능 최적화 (배포 환경 속도 저하 대응)
 - review-section.tsx: profiles 별도 쿼리 제거 → `select('*, profiles(username)')` JOIN 1회로 통합
 - app/(main)/page.tsx: 북마크 조회에 `.in('content_id', contentIds)` 추가, 전체 조회 → 현재 화면 콘텐츠만 필터

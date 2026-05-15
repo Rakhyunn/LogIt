@@ -32,6 +32,12 @@ Vercel은 서버리스 함수 환경이므로 로컬과 달리 DB 커넥션을 �
    전체 북마크 조회  →  현재 화면의 콘텐츠 ID만 필터링
    ```
 
+**추가 발견 — 리전 불일치 (2026-05-15)**
+- 현상: 위 코드 최적화 이후에도 페이지 로드·버튼 반응 모두 느림
+- 원인: Vercel 기본 함수 리전 = US East (iad1), Supabase = Seoul (ap-northeast-2). 모든 DB/Auth 요청에 편도 200~300ms 지연 추가됨
+- 수정: `frontend/vercel.json` 생성, `"regions": ["icn1"]` (서울) 설정으로 Vercel 함수를 Supabase와 동일 리전에 배치
+- 미들웨어의 `getUser()` 포함 모든 서버 함수 호출이 해당됨
+
 **미적용 개선 사항 (향후 검토)**
 - Server Component에서 `getUser()` → `getSession()` 전환: auth 서버 왕복 제거 가능하나 미들웨어 의존성 명확화 필요
 - 홈 `select('*')` → 필요 컬럼만 선택: ContentCard 타입 변경 수반, 별도 리팩토링으로 진행

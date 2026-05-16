@@ -129,4 +129,12 @@
   h1, h2, h3 {
     font-family: var(--font-heading);
     }
+  button:not(:disabled),
+  a,
+  [role="button"],
+  select,
+  label,
+  summary {
+    cursor: pointer;
+    }
 }
